@@ -1,0 +1,64 @@
+<style>
+
+
+ul{
+
+  list-style-type: none;
+
+}
+
+li{
+
+  float:center;
+  color: balck;
+  font-style: Georgia;
+  line-height: 180%;
+
+ 
+}
+
+
+a:link {
+  color: darkblue;
+  background-color: transparent;
+  text-decoration: none;
+  font-style: normal;
+}
+
+h1 {
+  color: black;
+  font-style: italic;
+  text-align: center;
+}
+
+h2 {
+  color: black;
+  font-style: italic;
+  text-align: center;
+  font-size: 2;
+}
+
+#pic {
+
+  text-align: center; 
+
+}
+
+#spacing{
+  border-style: solid;
+  border-width: thin 160px;
+  border-color: whitesmoke;
+
+}
+
+
+body {
+  background-color: whitesmoke;
+}
+
+
+p {
+  font-style: italic;
+  font-size: 18px;
+  text-align: left;
+}
