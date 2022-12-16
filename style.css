@@ -1,0 +1,75 @@
+<style>
+
+nav{
+  display: block;
+  background-color: black;
+}
+
+li{
+  color: black;
+  font-style: italic;
+  text-align: left;
+  font-size: 19px;
+}
+
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: darkgray;
+}
+
+a:link {
+  color: darkblue;
+  background-color: transparent;
+  text-decoration: none;
+  font-style: normal;
+}
+
+h1 {
+  color: black;
+  font-style: italic;
+  text-align: center;
+}
+
+h2 {
+  color: black;
+  font-size: 24px;
+  font-style: italic;
+}
+
+h3{
+  color: black;
+  font-size: 20px;
+  text-align: left; 
+}
+
+#pic {
+
+  text-align: center; 
+
+}
+
+#spacing{
+  border-style: solid;
+  border-width: thin 160px;
+  border-color: whitesmoke;
+
+}
+
+
+body {
+  background-color: whitesmoke;
+}
+
+
+p {
+  font-size: 20px;
+  text-align: left;
+}

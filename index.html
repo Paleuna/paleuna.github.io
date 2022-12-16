@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<title>CS639-Project</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="style.css"/>
+
+</head>
+	<body>
+
+		
+		<h1> Semantic Segmentation Under Adverse Weather</h1>
+
+	
+		<div id="pic">
+
+			<img src="fog.jpg" alt="A simple image of fog" style="width:1000px;height:400px;">
+			<div id="spacing">
+				<p style="font-size:16px;font-style: italic;"> Image credit: https://stock.adobe.com/search/images?k=fog <p>
+			</div>
+
+		</div>
+
+		<div id="spacing">
+
+			<p>Artificial neural network has proved itself in many fields to solve various kinds of problems, and it is an especially powerful tool in computer vision. In our project, we take advantage of semantic segmentation to train neural network in order to process adverse weather images</p>
+			
+			<h2>Semantic Segmentation</h2>		
+			
+			<p>Semantic segmentation is the task of clustering parts of an image together and labeling each part with a class. For example, in the right picture, we label the green part as the tree class. </p>
+			<div id="pic">
+
+				<img src="segmentation_1.png" style="width:400px;height:200px;" >
+				<img src="segmentation_2.png" style="width:400px;height:200px;" >
+				<p style="font-size:16px;font-style: italic;"> Image credit: CityScape dataset<p>
+			</div>
+
+			<h2>Adverse Weather </h2>	
+			<p>In the context of semantic segmentation tasks, adverse weather conditions are weather conditions that can cause low visibility in environments, that is the weather condition that results in a large amount of noise in captured images or video. </p>	
+			
+			<h3>1) Example:</h3>
+			<ul>
+				<li>Fog - Our focus in this project</li>
+				<li>Frost</li>
+				<li>Snow</li>
+			</ul> 
+			<h3>2) Difficulities:</h3>
+			<p> The noise has a non-linear behavior and has a strong dependency on additional variables such as distance to the camera and light of the atmosphere thus making it challenging to recover correct label from 2-D image</p>
+
+			<h2>Motivation</h2>		
+				
+			<ul>
+				<li>Currently, popular semantic segmentation algorithm shows competetive performance to deal with clear-weather images (as shown in below figure on the left side). </li>
+				<li>However, the loss of information caused by the weather-related noise prevents popular segmentation algorithm form a reliable result (as shown in below figure on the right side). </li>
+				<li>Real world application such as autonomous vehicles demands a robust algorithm under various weather conditions</li>
+
+			</ul> 
+
+			<div id="pic">
+
+				<img src="motivation_1.jpg" style="width:300px;height:200px" >
+				<img src="motivation_2.jpg" style="width:600px;height:200px" >
+					
+				<p style="font-size:16px;font-style: italic;"> Image credit: CityScape dataset<p>
+			</div>
+
+			<h2>Approach</h2>
+			<h3>1) FIFO:</h3>
+			<div id="pic">
+
+				<img src="FIFO_pipeline.png" style="width:500px;height:200px" >
+				<p style="font-size:16px;font-style: italic;"> Image credit: FIFO: Learning Fog-invariant Features for Foggy Scene Segmentation by Sohyun Lee, Taeyoung Son, Suha Kwak image Credit: FIFO pipeline<p>
+			</div>
+
+			<p> FIFO: Learning Fog-invariant Features for Foggy Scene Segmentation is a 2022 CVPR newly published paper in order to solve the segmentation problem under fog scenes. Essentially, the main idea behind FIFO is to train a fog-detection filter (as shown in the below figure on the left side) that can detect the fog and allows the segmentation network to classify the image by utilizing the fog-invariant features.</p>
+
+			<p> Limitation: FIFO can be very successful on light-fog images due to the presence of clear section, but produces <b>non-ideal results on dense fog</b> images if fog prevails the whole image due to the intrinsic feature of the foggy-pass filter (as shown in the below figure on the right side).</p>
+
+
+			<div id="pic">
+
+				<img src="FIFO_characteristics_1.png" style="width:300px;height:200px" >
+				<img src="FIFO_characteristics_2.png" style="width:500px;height:200px" >
+				
+				<p style="font-size:16px;font-style: italic;">Image credit: FIFO: Learning Fog-invariant Features for Foggy Scene Segmentation by Sohyun Lee, Taeyoung Son<p>
+
+			</div>
+
+		
+			<h3>2) Our Model</h3>		
+			<p> In order to take advantage of the foggy-pass filter, we adapt a pre-processing layer called "dark channel prior" to the pretrained filter and segmentation network of FIFO. Dark channel prior is a type of dehazing filter that uses observation that "at least one color channel has very low intensity at some pixels in most of the non-sky patches". Our expectation is that the preprocessing layer can somehow break down the fog scene to separate sections so that FIFO can have a better performance on dense fog scenes (by breaking fog, the clear section in the image can be obtained for FIFO to capture the fog-invariant feature) The structure of our model is shown as follows:</p>
+				
+
+			<div id="pic">
+
+				<img src="improved_model.png" style="width:700px;height:200px" >
+
+			</div>
+
+			<h2> Experiment</h2>		
+			<ul>
+				<li> Training both FIFO and our model with 20000 iterations</li>
+				<li> foggy Zurich, foggy driving, cityscape and foggy driving dense(dense fog) dataset are used for training
+				</li>
+				<li> Evaluate result on foggy Zurich test, foggy driving test, foggy driving dense test and cityscape lindau dataset by comparing MIoU (mean intersection over union) for FIFO and our model</li>
+			</ul> 
+
+			<h2> Result</h2>
+
+			<h3> 1) Preprocessing Layer</h3>		
+
+			<p> We separate the processing layers from our model and test its capacity to break down the dense fog scene into a light fog scene. As shown in the below figure, the preprocessing layer shows the competitive ability to decompose fog scenes.</p>
+
+			<div id="pic">
+
+				<img src="experiment.png" style="width:700px;height:200px" >
+				
+			</div>
+
+			<h3> 2) Visualization Results</h3>		
+
+            <p> In the dense fog case, our model outperforms the original FIFO model. As shown in the below visualization results, our segmentation results demonstrate better performance.</p>
+
+		
+			<div id="pic">
+
+				<img src="result.png" style="width:1000px;height:200px" >
+				
+			</div>
+
+			<h3> 3) Quantitative Results</h3>	
+
+			 <p> From the quantitative results, we can see that the performance of our model in dense fog (foggy driving dense) is better than FIFO. However, in the light fog case, our model shows similar or sightly worse results.</p>
+
+
+			<div id="pic">
+
+				<img src="discussion.png" style="width:500px;height:200px" >
+			
+			</div>
+
+
+			<h2> Discussion and Future Work</h2>		
+			<ul>
+				<li> The cause of worse performance - distortion introduced by pre-processing layer</li>
+				<li> Too much sky patches on the training set while the preprocessing layer cannot perform well if too many sky patches presents</li>
+				<li> For further improvement, we can introduce some more robust pre-processing layer that is not depend on the special features of the image</li>
+			</ul> 
+
+			<p> Source code can be find at: <a href="https://github.com/Paleuna/CS639" target="_blank">Our GitHub </a><p>
+
+			<p> To see our presentation video at: <a href="https://github.com/Paleuna/CS639" target="_blank"> Youtube </a><p>
+
+
+
+		</div>
+
+	</body>
+
+</html>
