@@ -60,7 +60,7 @@
 				<br>
 				<li>However, the loss of information caused by the weather-related noise as mentioned above prevents popular segmentation algorithm form a reliable result (as shown in below figure on the right side). </li>
 				<br>
-				<li>Real world application such as autonomous vehicles demands a robust algorithm under various weather conditions</li>
+				<li>Real world application such as autonomous vehicles demands a robust algorithm under various weather conditions.</li>
 
 			</ul> 
 
@@ -96,7 +96,7 @@
 
 		
 			<h3>2) Our Model</h3>		
-			<p> In order to take advantage of the foggy-pass filter, we adapt a pre-processing layer called "dark channel prior" to the pretrained filter and segmentation network of FIFO. Dark channel prior is a type of dehazing filter that uses observation that "at least one color channel has very low intensity at some pixels in most of the non-sky patches". Our expectation is that the preprocessing layer can somehow break down the fog scene to separate sections so that FIFO can have a better performance on dense fog scenes (by breaking fog, the clear section in the image can be obtained for FIFO to capture the fog-invariant feature) The structure of our model is shown as follows:</p>
+			<p> In order to take advantage of the foggy-pass filter, we adapt a pre-processing layer called "dark channel prior" to the pretrained filter and segmentation network of FIFO. Dark channel prior is a type of dehazing filter that uses observation that "at least one color channel has very low intensity at some pixels in most of the non-sky patches". Our expectation is that the preprocessing layer can somehow break down the fog scene to separate sections so that FIFO can have a better performance on dense fog scenes (by breaking fog, the clear section in the image can be obtained for FIFO to capture the fog-invariant feature). The structure of our model is shown as follows:</p>
 				
 
 			<div id="pic">
@@ -107,12 +107,14 @@
 
 			<h2> Experiment</h2>		
 			<ul>
-				<li> Training both FIFO and our model with 20000 iterations</li>
+				<li> Training both FIFO and our model with 20000 iterations.</li>
 				<br>
-				<li> foggy Zurich, foggy driving, cityscape and foggy driving dense(dense fog) dataset are used for training
+				<li> Four datasets - foggy Zurich, foggy driving, cityscape and foggy driving dense(dense fog) dataset are used for training.
 				</li>
 				<br>
-				<li> Evaluate result on foggy Zurich test, foggy driving test, foggy driving dense test and cityscape lindau dataset by comparing MIoU (mean intersection over union) for FIFO and our model</li>
+				<li> Evaluate result on foggy Zurich test, foggy driving test, foggy driving dense test and cityscape lindau dataset by comparing MIoU (mean intersection over union) for FIFO and our model.</li>
+				<br>
+				<li> We trained our model in Colab Pro. </li>
 			</ul> 
 
 			<h2> Result</h2>
