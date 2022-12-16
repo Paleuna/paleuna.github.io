@@ -6,10 +6,10 @@ nav{
 }
 
 li{
-  color: black;
+  color: darkblue;
   font-style: italic;
   text-align: left;
-  font-size: 19px;
+  font-size: 21px;
 }
 
 
@@ -47,7 +47,7 @@ h2 {
 
 h3{
   color: black;
-  font-size: 19px;
+  font-size: 20px;
   text-align: left; 
   font-style: arial;
 }
